@@ -92,4 +92,5 @@ export const spriteBounds = {
     service_diesel: new SpriteBounds(40,120,20,20),
     service_charger: new SpriteBounds(60,120,20,20),
     player: new SpriteBounds(20,0,20,20),
+    railCar: new SpriteBounds(40,0,20,20),
 }

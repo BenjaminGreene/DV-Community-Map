@@ -458,6 +458,36 @@ function redrawMap(){
             case 'player':
                 if(!(MapData.layers.poi)) break;
                 marker.visible = true;
+
+                for(let i=0; i<marker.cars.length; i++){
+                    const car = marker.cars[i];
+                    let carX = MapData.view.convertX(car.x);
+                    let carY = MapData.view.convertY(car.z);
+
+                    curSprite = Config.spriteBounds.railCar;
+                    
+                    spriteSize = 15 * MapData.view.scale;
+                    const carWidth = trackWidth * 1.8;
+                    const carLength = car.length * MapData.view.scale;
+                    
+                    mapctx.translate(carX, carY);
+                    mapctx.rotate(car.rotation);
+                    mapctx.translate(-0.5*carWidth * MapData.view.pixelRatio, -0.5*carLength * MapData.view.pixelRatio);
+                    mapctx.drawImage(
+                        mapSprites,
+                        curSprite.x,
+                        curSprite.y,
+                        curSprite.width,
+                        curSprite.height,
+                        0,
+                        0,
+                        carWidth,
+                        carLength
+                    );
+                    
+                    mapctx.resetTransform();
+                }
+
                 curSprite = Config.spriteBounds.player;
                 spriteSize = 45;
                 

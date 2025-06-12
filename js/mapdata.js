@@ -22,6 +22,7 @@ export let playerMarker = {
     position: {x:8192, y:200, z:8192},
     rotation: 0.0,
     minZoom: 0.0,
+    cars: [],
     hidden: true,
 };
 let locationUpdateRate = 500;
@@ -682,12 +683,13 @@ export function connectPlayerLocation(address, status){
             status.value = 'Disconnect   ';
             playerLocation = await (fetchRequest).json();
             playerMarker.position = {
-                x: playerLocation.X,
-                y: playerLocation.Y,
-                z: playerLocation.Z,
+                x: playerLocation.x,
+                y: playerLocation.y,
+                z: playerLocation.z,
             };
-            playerMarker.rotation = playerLocation.Rotation;
+            playerMarker.rotation = playerLocation.rotation;
             playerMarker.tooltip = `<h1>Player</h1>X: ${playerMarker.position.x.toFixed(2)}\nY: ${playerMarker.position.y.toFixed(2)}\nZ: ${playerMarker.position.z.toFixed(2)}\nBearing ${(playerMarker.rotation * (180/Math.PI)).toFixed(1)} (${Utils.angleToCardinalDirection(playerMarker.rotation)})`;
+            playerMarker.cars = playerLocation.cars;
             playerMarker.hidden = false;
             started = true;
             view.dirty = true;
